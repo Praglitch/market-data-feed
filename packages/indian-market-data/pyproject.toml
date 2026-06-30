@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "indian-market-data"
+version = "1.1.1"
+description = "NSE + BSE + MCX India market data as pandas DataFrames — bhavcopy, SENSEX/Nifty indices, F&O, commodity spot prices. AWS Lambda ready."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.9"
+authors = [
+    {name = "Nikhil Suthar", email = "nikhil.suthar@lumiq.ai"},
+]
+keywords = ["nse", "mcx", "nifty", "india", "bhavcopy", "nse-india", "mcx-india", "stock-market", "commodity", "equity", "derivatives", "market-data", "financial-data", "pandas", "nifty50", "nseindia", "trading", "historical-data", "aws-lambda", "s3", "snowflake"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Office/Business :: Financial :: Investment",
+    "Typing :: Typed",
+]
+dependencies = [
+    "nse-archives>=1.1.1",
+    "bse-index-data>=1.1.1",
+    "mcx-data>=1.1.1",
+]
+
+[project.optional-dependencies]
+polars = ["polars>=0.20.0"]
+s3 = ["boto3>=1.28.0"]
+cloudflare = ["cloudscraper>=1.2.71"]
+all = ["boto3>=1.28.0", "cloudscraper>=1.2.71", "polars>=0.20.0"]
+dev = ["pytest", "pytest-cov", "ruff"]
+
+[project.urls]
+Homepage = "https://github.com/NikhilSuthar/indian-market-data"
+Documentation = "https://NikhilSuthar.github.io/indian-market-data"
+Repository = "https://github.com/NikhilSuthar/indian-market-data"
+"Bug Tracker" = "https://github.com/NikhilSuthar/indian-market-data/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
