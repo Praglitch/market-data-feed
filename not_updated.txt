@@ -1,0 +1,11 @@
+📋 Files NOT updated to 2026-06-30:
+  nifty500_scrips/CHOLAFIN_1min.csv  last: 2026-06-11 20:59:00
+  nifty500_scrips/MMFIN_1min.csv  last: 2026-06-25 15:29:00
+  nifty500_scrips/GVTD_1min.csv  last: 2026-06-25 15:29:00
+  nifty500_scrips/GSPL_1min.csv  last: 2026-06-11 20:59:00
+  nifty500_scrips/LTIM_1min.csv  last: 2026-06-25 15:29:00
+  nifty500_scrips/AKZOINDIA_1min.csv  last: 2026-06-25 15:29:00
+  nifty500_scrips/MM_1min.csv  last: 2026-06-25 15:29:00
+  nifty500_scrips/AREM_1min.csv  last: 2026-06-25 15:29:00
+  nifty500_scrips/JKBANK_1min.csv  last: 2026-06-25 15:29:00
+  nifty500_index/NIFTY500_INDEX.csv  last: 2026-06-25 15:29:00
