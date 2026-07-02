@@ -57,21 +57,3 @@ MIT — Data sourced from NSE India, BSE India, and MCX India.
 Credits: Built on the original indian-market-data monorepo by Nikhil Suthar, extended with a custom 1‑minute OHLCV pipeline and Google Drive integration.
 
 Happy Trading! 🚀
-EOF
-
-text
-
----
-
-## 📤 Bump Version and Re-upload
-
-```bash
-# Update version
-sed -i 's/version = "0.1.0"/version = "0.1.1"/' pyproject.toml
-
-# Rebuild
-rm -rf dist/ build/ *.egg-info
-python -m build
-
-# Upload
-TWINE_USERNAME=__token__ TWINE_PASSWORD=pypi-YOUR_TOKEN twine upload dist/*
