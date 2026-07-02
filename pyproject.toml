@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "market-data-feed"
-version = "0.1.3"
+version = "0.1.4"
 description = "Indian market data: NSE, BSE, MCX + custom 1-minute OHLCV"
 readme = "README.md"
 authors = [{name = "Praglitch", email = "your-email@example.com"}]
