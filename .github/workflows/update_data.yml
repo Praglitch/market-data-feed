@@ -29,30 +29,7 @@ jobs:
           echo "${{ secrets.TOKEN_PICKLE }}" | base64 -d > credentials/token.pickle
 
       - name: Download existing data from Google Drive
-        run: |
-          python -c "
-from customdata.drive_client import authenticate, get_root_folder_id, get_subfolder_id, list_files_in_folder, download_file_as_df
-import os
-import pandas as pd
-
-service = authenticate()
-root_id = get_root_folder_id(service)
-
-folders = ['nifty50_scrips', 'nifty50_index', 'nifty500_scrips', 'nifty500_index']
-for folder in folders:
-    folder_id = get_subfolder_id(service, folder, root_id)
-    if not folder_id:
-        print(f'Folder {folder} not found, skipping')
-        continue
-    os.makedirs(f'data/{folder}', exist_ok=True)
-    files = list_files_in_folder(service, folder_id)
-    for f in files:
-        if not f['name'].endswith('.csv'):
-            continue
-        print(f'Downloading {folder}/{f[\"name\"]}...')
-        df = download_file_as_df(service, f['id'])
-        df.to_csv(f'data/{folder}/{f[\"name\"]}', index=False)
-          "
+        run: python scripts/download_data.py
 
       - name: Run local updater
         run: python scripts/update_local.py
