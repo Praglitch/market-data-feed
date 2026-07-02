@@ -54,6 +54,5 @@ Run get_scrip() once — your browser will open for authentication.
 📄 License
 MIT — Data sourced from NSE India, BSE India, and MCX India.
 
-Credits: Built on the original indian-market-data monorepo by Nikhil Suthar, extended with a custom 1‑minute OHLCV pipeline and Google Drive integration.
 
 Happy Trading! 🚀
