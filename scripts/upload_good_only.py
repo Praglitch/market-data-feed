@@ -1,0 +1,127 @@
+import os
+import pickle
+import pandas as pd
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+from googleapiclient.discovery import build
+from googleapiclient.http import MediaFileUpload
+
+SCOPES = ["https://www.googleapis.com/auth/drive.file"]
+CLIENT_SECRET_FILE = "credentials/oauth_client.json"
+TOKEN_PICKLE = "credentials/token.pickle"
+LOCAL_DATA_ROOT = "data"
+DRIVE_ROOT_FOLDER_NAME = "indian-market-data"
+
+FOLDER_MAP = {
+    "nifty50_scrips": "nifty50_scrips",
+    "nifty50_index": "nifty50_index",
+    "nifty500_scrips": "nifty500_scrips",
+    "nifty500_index": "nifty500_index",
+}
+
+
+def authenticate():
+    creds = None
+    if os.path.exists(TOKEN_PICKLE):
+        with open(TOKEN_PICKLE, "rb") as token:
+            creds = pickle.load(token)
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRET_FILE, SCOPES)
+            creds = flow.run_local_server(port=0)
+        with open(TOKEN_PICKLE, "wb") as token:
+            pickle.dump(creds, token)
+    return build("drive", "v3", credentials=creds)
+
+
+def get_or_create_folder(service, folder_name, parent_id=None):
+    query = f"name='{folder_name}' and mimeType='application/vnd.google-apps.folder' and trashed=false"
+    if parent_id:
+        query += f" and '{parent_id}' in parents"
+    results = service.files().list(q=query, fields="files(id, name)").execute()
+    folders = results.get("files", [])
+    if folders:
+        return folders[0]["id"]
+    file_metadata = {"name": folder_name, "mimeType": "application/vnd.google-apps.folder"}
+    if parent_id:
+        file_metadata["parents"] = [parent_id]
+    folder = service.files().create(body=file_metadata, fields="id").execute()
+    return folder.get("id")
+
+
+def upload_file_overwrite(service, local_path, drive_folder_id, file_name):
+    # Delete if exists
+    query = f"name='{file_name}' and '{drive_folder_id}' in parents and trashed=false"
+    results = service.files().list(q=query, fields="files(id, name)").execute()
+    for f in results.get("files", []):
+        service.files().delete(fileId=f["id"]).execute()
+        print(f"🗑️ Deleted existing {file_name}")
+    # Upload
+    media = MediaFileUpload(local_path, mimetype="text/csv", resumable=True)
+    file_metadata = {"name": file_name, "parents": [drive_folder_id]}
+    service.files().create(body=file_metadata, media_body=media, fields="id").execute()
+    print(f"✅ Uploaded: {file_name}")
+
+
+def load_skip_list():
+    """Read not_updated.txt and extract filenames to skip."""
+    skip_files = set()
+    try:
+        with open("not_updated.txt", "r") as f:
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith("📋") or line.startswith("✅"):
+                    continue
+                # Extract filename (e.g., 'nifty50_scrips/SBILIFE_1min.csv')
+                parts = line.split()
+                if parts and len(parts) >= 1:
+                    # The line starts with '  folder/filename'
+                    path = parts[0].strip()
+                    if "/" in path:
+                        filename = path.split("/")[-1]
+                        skip_files.add(filename)
+    except FileNotFoundError:
+        print("⚠️ not_updated.txt not found. Uploading ALL files.")
+    return skip_files
+
+
+def main():
+    skip_files = load_skip_list()
+    if skip_files:
+        print(f"🛑 Skipping {len(skip_files)} files that are not updated:")
+        for f in sorted(skip_files):
+            print(f"   - {f}")
+    else:
+        print("✅ No files to skip.")
+
+    print("🔐 Authenticating...")
+    service = authenticate()
+    root_id = get_or_create_folder(service, DRIVE_ROOT_FOLDER_NAME)
+
+    uploaded_count = 0
+    skipped_count = 0
+
+    for local_folder, drive_folder_name in FOLDER_MAP.items():
+        local_path = os.path.join(LOCAL_DATA_ROOT, local_folder)
+        if not os.path.exists(local_path):
+            print(f"⚠️ Local folder not found: {local_path}")
+            continue
+        subfolder_id = get_or_create_folder(service, drive_folder_name, parent_id=root_id)
+
+        for file_name in os.listdir(local_path):
+            if not file_name.endswith(".csv"):
+                continue
+            if file_name in skip_files:
+                print(f"⏭️ Skipping {file_name} (not updated)")
+                skipped_count += 1
+                continue
+            upload_file_overwrite(service, os.path.join(local_path, file_name), subfolder_id, file_name)
+            uploaded_count += 1
+
+    print(f"\n🎉 Done! Uploaded {uploaded_count} files, skipped {skipped_count} files.")
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "market-data-feed"
+version = "0.1.3"
+description = "Indian market data: NSE, BSE, MCX + custom 1-minute OHLCV"
+readme = "README.md"
+authors = [{name = "Praglitch", email = "your-email@example.com"}]
+license = "MIT"
+requires-python = ">=3.9"
+dependencies = [
+    "pandas>=2.0.0",
+    "requests>=2.31.0",
+    "openpyxl>=3.1.0",
+    "curl-cffi>=0.7.0",
+    "google-api-python-client>=2.100.0",
+    "google-auth-oauthlib>=1.0.0",
+    "google-auth-httplib2>=0.1.0",
+]
+
+[project.optional-dependencies]
+s3 = ["boto3>=1.28.0"]
+polars = ["polars>=0.20.0"]
+cloudflare = ["cloudscraper>=1.2.71"]
+all = ["boto3>=1.28.0", "polars>=0.20.0", "cloudscraper>=1.2.71"]
+dev = ["pytest", "pytest-cov", "ruff"]
+
+[project.urls]
+Homepage = "https://github.com/Praglitch/market-data-feed"
+Repository = "https://github.com/Praglitch/market-data-feed"
+BugTracker = "https://github.com/Praglitch/market-data-feed/issues"
+
+[tool.setuptools]
+packages = ["nsedata", "bsedata", "mcxdata", "customdata"]
+
+[tool.setuptools.package-dir]
+nsedata = "packages/nse-data/src/nsedata"
+bsedata = "packages/bse-data/src/bsedata"
+mcxdata = "packages/mcx-data/src/mcxdata"
+customdata = "customdata"

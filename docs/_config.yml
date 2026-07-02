@@ -1,0 +1,33 @@
+title: "market-data-feed"
+description: "Unified Indian Market Data + Custom 1‑Minute OHLCV — NSE, BSE, MCX and proprietary high‑frequency data."
+remote_theme: just-the-docs/just-the-docs
+url: "https://Praglitch.github.io/market-data-feed"
+baseurl: "/market-data-feed"
+color_scheme: light
+
+aux_links:
+  "GitHub":
+    - "https://github.com/Praglitch/market-data-feed"
+  "PyPI":
+    - "https://pypi.org/project/market-data-feed/"
+
+aux_links_new_tab: true
+
+footer_content: "MIT License. Data sourced from [NSE India](https://www.nseindia.com), [BSE India](https://www.bseindia.com), and [MCX India](https://www.mcxindia.com)."
+
+search_enabled: true
+back_to_top: true
+back_to_top_text: "↑ Back to top"
+
+nav_sort: "order"
+
+callouts:
+  note:
+    title: Note
+    color: blue
+  warning:
+    title: Warning
+    color: yellow
+  tip:
+    title: Tip
+    color: green

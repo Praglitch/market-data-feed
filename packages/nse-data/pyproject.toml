@@ -1,0 +1,63 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nse-archives"
+version = "1.1.1"
+description = "Download NSE India market data as pandas DataFrames — bhavcopy, indices, F&O, equity, debt, commodity, currency derivatives. Works on AWS Lambda and Snowflake."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.9"
+authors = [
+    {name = "Nikhil Suthar", email = "nikhil.suthar@lumiq.ai"},
+]
+keywords = ["nse", "nse-data", "nse-india", "nifty", "bhavcopy", "nifty50", "nse-bhavcopy", "india", "stock-market", "equity", "f&o", "derivatives", "indices", "market-data", "financial-data", "pandas", "lambda", "s3", "snowflake", "nseindia", "nsearchives", "trading", "historical-data"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Office/Business :: Financial :: Investment",
+    "Typing :: Typed",
+]
+dependencies = [
+    "requests>=2.31.0",
+    "pandas>=2.0.0",
+    "openpyxl>=3.1.0",
+]
+
+[project.optional-dependencies]
+cloudflare = ["cloudscraper>=1.2.71"]
+s3  = ["boto3>=1.28.0"]
+polars = ["polars>=0.20.0"]
+all = ["cloudscraper>=1.2.71", "boto3>=1.28.0", "polars>=0.20.0"]
+dev = ["pytest", "pytest-cov", "ruff"]
+
+[project.scripts]
+nse-data = "nsedata.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/NikhilSuthar/indian-market-data"
+Documentation = "https://NikhilSuthar.github.io/indian-market-data"
+Repository = "https://github.com/NikhilSuthar/indian-market-data"
+"Bug Tracker" = "https://github.com/NikhilSuthar/indian-market-data/issues"
+Changelog = "https://github.com/NikhilSuthar/indian-market-data/blob/main/CHANGELOG.md"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+target-version = "py39"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
