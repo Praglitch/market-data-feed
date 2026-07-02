@@ -1,4 +1,3 @@
-cat > README.md << 'EOF'
 # market-data-feed
 
 **Unified Indian Market Data + Custom 1‑Minute OHLCV**
