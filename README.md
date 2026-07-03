@@ -5,6 +5,7 @@
 [![PyPI version](https://badge.fury.io/py/market-data-feed.svg)](https://pypi.org/project/market-data-feed/)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+📖 **[VIEW DOCS](https://praglitch.github.io/market-data-feed-documentation_page/)**
 
 ---
 
@@ -57,4 +58,3 @@ MIT — Data sourced from NSE India, BSE India, and MCX India.
 
 Happy Trading! 🚀
 
-[![Documentation](https://img.shields.io/badge/docs-live-brightgreen)](https://praglitch.github.io/market-data-feed-documentation_page/)
