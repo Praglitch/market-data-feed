@@ -56,8 +56,6 @@ Run get_scrip() once — your browser will open for authentication.
 MIT — Data sourced from NSE India, BSE India, and MCX India.
 +w
 
-📖 **For full documentation, visit the official documentation page:
-**[VIEW DOCS](https://praglitch.github.io/market-data-feed-documentation_page/)**
 
 Happy Trading! 🚀
 
