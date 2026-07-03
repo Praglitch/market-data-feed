@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "market-data-feed"
-version = "0.1.4"
+version = "0.1.5"
 description = "Indian market data: NSE, BSE, MCX + custom 1-minute OHLCV"
 readme = "README.md"
 authors = [{name = "Praglitch", email = "your-email@example.com"}]
@@ -29,6 +29,7 @@ dev = ["pytest", "pytest-cov", "ruff"]
 
 [project.urls]
 Homepage = "https://github.com/Praglitch/market-data-feed"
+Documentation = "https://praglitch.github.io/market-data-feed-documentation_page/"
 Repository = "https://github.com/Praglitch/market-data-feed"
 BugTracker = "https://github.com/Praglitch/market-data-feed/issues"
 

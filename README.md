@@ -53,6 +53,8 @@ Run get_scrip() once — your browser will open for authentication.
 
 📄 License
 MIT — Data sourced from NSE India, BSE India, and MCX India.
-
++w
 
 Happy Trading! 🚀
+
+[![Documentation](https://img.shields.io/badge/docs-live-brightgreen)](https://praglitch.github.io/market-data-feed-documentation_page/)
